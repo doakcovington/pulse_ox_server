@@ -12,21 +12,21 @@ app.use(express.json());
 //Routes
 
 //create record
-app.post("/reports", async (request, response) => {
+app.post("/records", async (request, response) => {
     try {
         const date = request.body.date;
         const oxygen = request.body.oxygen;
-        const newReport = await pool.query("INSERT INTO reports (date, oxygen) VALUES($1, $2) RETURNING *", [date, oxygen]);
-        response.json(newReport.rows[0]);
+        const newRecord = await pool.query("INSERT INTO records (date, oxygen) VALUES($1, $2) RETURNING *", [date, oxygen]);
+        response.json(newRecord.rows[0]);
     } catch (error) {
         console.log(error.message)
     }
 });
 //get all records
-app.get("/reports", async(request, response) => {
+app.get("/records", async(request, response) => {
     try {
-       const allReports = await pool.query("SELECT * FROM reports");
-       response.json(allReports.rows); 
+       const allRecords = await pool.query("SELECT * FROM records");
+       response.json(allRecords.rows); 
     } catch (error) {
         console.log(error.message)
     }
