@@ -33,7 +33,15 @@ app.get("/records", async(request, response) => {
 })
 
 //get a record
-
+app.get("/records/:id", async (request, response) => {
+    try {
+        const { id } = request.params;
+        const record = await pool.query("SELECT * FROM records WHERE id = $1", [id])
+        response.json(record.rows[0])
+    } catch (error) {
+        console.log(error.message)
+    }
+})
 //delete a record
 
 app.listen(5000, () => {
