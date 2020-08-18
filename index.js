@@ -43,6 +43,15 @@ app.get("/records/:id", async (request, response) => {
     }
 })
 //delete a record
+app.delete("/records/:id", async (request, response) => {
+    try {
+      const { id } = request.params
+      const deleteRecord = await pool.query("DELETE FROM records WHERE id = $1", [id]);
+      response.json('Record was deleted')  
+    } catch (error) {
+        console.log(error.message)
+    }
+})
 
 app.listen(5000, () => {
   console.log("We Don't Go To Ravenholm");  
